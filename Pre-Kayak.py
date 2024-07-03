@@ -1,4 +1,4 @@
-"""Brute Force Diff"""
+"""ติด TimeOut"""
 n = int(input())
 weights = list(map(int, input().split()))
 weights.sort()

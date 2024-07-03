@@ -1,4 +1,4 @@
-"""Blackjack"""
+"""ติด PEP-8"""
 cnt_card = int(input())
 cards = [input().upper() for _ in range(cnt_card)]
 def score(cards):
