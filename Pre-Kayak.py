@@ -1,17 +1,12 @@
+"""Kayak eiei"""
 n = int(input())
-weights = list(map(int, input().split()))
-weights.sort()
-
-def calculate_sum_diff(weights):
-    return sum(weights[k+1] - weights[k] for k in range(0, len(weights)-1, 2))
-
-min_diff = float('inf')
-
-for i in range(2*n):
-    for j in range(i+1, 2*n):
-        if j > i + 1:  # Ensure j is after i+1 to maintain the sequence
-            new_weights = weights[:i] + weights[i+1:j] + weights[j+1:]
-            diff = calculate_sum_diff(new_weights)
-            min_diff = min(min_diff, diff)
-
-print(min_diff)
+weight = sorted(map(int, input().split()))
+remind, cnt = 0, 0
+while cnt != n - 1:
+    Calcu = [weight[i + 1] - weight[i] for i in range(len(weight) - 1)]
+    min_idx = Calcu.index(min(Calcu))
+    remind += weight[min_idx + 1] - weight[min_idx]
+    weight.pop(min_idx + 1)
+    weight.pop(min_idx)
+    cnt += 1
+print(remind)
