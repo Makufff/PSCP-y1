@@ -1,12 +1,9 @@
-"""Kayak eiei"""
-n = int(input())
-weight = sorted(map(int, input().split()))
-remind, cnt = 0, 0
-while cnt != n - 1:
-    Calcu = [weight[i + 1] - weight[i] for i in range(len(weight) - 1)]
-    min_idx = Calcu.index(min(Calcu))
-    remind += weight[min_idx + 1] - weight[min_idx]
-    weight.pop(min_idx + 1)
-    weight.pop(min_idx)
-    cnt += 1
-print(remind)
+"""kaya"""
+def kayak(n, lst, ans=0):
+    """kaya"""
+    for _ in range(n-1):
+        m = [abs(lst[i]-lst[i+1]) for i in range(len(lst)-1)]
+        ans += min(m)
+        del lst[m.index(min(m)):m.index(min(m))+2]
+    print(ans)
+kayak(int(input()), sorted(list(map(int, input().split()))))
