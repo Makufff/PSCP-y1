@@ -1,6 +1,13 @@
 """Gift-II"""
-weights = [int(input()) for _ in range(8)]
-for weight in weights:
-    if not weight % 2:
-        print(weight)
-        break
+def main(a):
+    """Doc"""
+    if not a%2:
+        print(a)
+main(int(input()))
+main(int(input()))
+main(int(input()))
+main(int(input()))
+main(int(input()))
+main(int(input()))
+main(int(input()))
+main(int(input()))
