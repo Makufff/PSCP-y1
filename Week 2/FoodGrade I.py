@@ -1,7 +1,7 @@
 """Food"""
 COUNT = 0
 def check_weight(weight,curr_cnt):
-    """glue"""
+    """manual"""
     if 50 <= weight <= 70:
         curr_cnt += 1
     return curr_cnt
