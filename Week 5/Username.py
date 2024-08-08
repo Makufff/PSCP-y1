@@ -1,0 +1,2 @@
+"""Lowwer"""
+print(input().lower())
