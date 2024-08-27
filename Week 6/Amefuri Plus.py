@@ -1,54 +1,37 @@
-"""Calculate wetness levels"""
-def calculate_wetness(start_time, weather_pattern):
-    """
-    Calculate the wetness level based on the given weather pattern.
-
-    Args:
-    start_time (str): The starting hour as a string (0-23)
-    weather_pattern (str): A string of weather conditions
-
-    Returns:
-    float or str: The final wetness level or "Lost" if a hurricane occurs
-    """
-
+"""Drying Na Krub"""
+def drying_simulation(start_hour: int, weather_log: str) -> None:
+    """Drying Simulation"""
     wetness = 8.0
-    current_time = int(start_time)
+    hour = start_hour % 24
 
-    for weather in weather_pattern:
-        current_time %= 24
+    day_weather = {'c': -0.5, 'n': -1.0, 'w': -1.5}
+    night_weather = {'c': -0.25, 'n': -0.5, 'w': -0.75}
+    rain_weather = {'r': 2.0, 's': 3.0}
 
-        if 6 <= current_time < 18:  # Daytime
-            drying_rates = {'C': 0.50, 'N': 1.00, 'W': 1.50}
-        else:  # Nighttime
-            drying_rates = {'C': 0.25, 'N': 0.50, 'W': 0.75}
+    for weather in weather_log.lower():
+        if weather == 'h':
+            print("Lost")
+            return
 
-        wetness -= drying_rates.get(weather.upper(), 0)
-
-        if weather.upper() == 'R':
-            wetness += 2.00
-        elif weather.upper() == 'S':
-            wetness += 3.00
-        elif weather.upper() == 'H':
-            return "Lost"
+        if weather in rain_weather:
+            wetness += rain_weather[weather]
+        elif weather in day_weather or weather in night_weather:
+            if 6 <= hour < 18:
+                wetness += day_weather.get(weather, 0)
+            else:
+                wetness += night_weather.get(weather, 0)
 
         wetness = max(0, min(wetness, 16))
-        current_time += 1
 
-    return wetness
+        if not wetness:
+            print("Dry")
+            return
 
-def main():
-    """Read input"""
-    start_time = input().strip()
-    weather_pattern = input().strip()
+        hour = (hour + 1) % 24
 
-    result = calculate_wetness(start_time, weather_pattern)
-
-    if result == "Lost":
-        print("Lost")
-    elif result == 0:
+    if not wetness:
         print("Dry")
     else:
-        print(f"Still Wet (Wet Level: {result:.2f})")
+        print(f"Still Wet (Wet Level: {wetness:.2f})")
 
-if __name__ == "__main__":
-    main()
+drying_simulation(int(input()), input())
