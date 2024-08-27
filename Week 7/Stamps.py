@@ -1,41 +1,42 @@
-"""STAMPS"""
-def calculate_promotion(n, a, b, c, d, bills):
+"""Stamps"""
+def calculate_promotion(n, a, b, c, d):
     """
-    ขี้เกียจแล้วใส่ไรก็ใส่มาเลย dynamic type ละ
+    Calculate the total amount paid and the remaining stamps after applying a promotion.
 
     Args:
-        ขี้เกียจแล้วใส่ไรก็ใส่มาเลย dynamic type ละ
+        n (int): The number of bills.
+        a (int): The amount of money spent to earn stamps.
+        b (int): The number of stamps earned per 'a' amount spent.
+        c (int): The number of stamps required for a discount.
+        d (int): The discount amount per 'c' stamps used.
 
     Returns:
-        ขี้เกียจแล้วบอกแล้ว dynamic type ละ
+        None: The function prints the total amount paid and the remaining stamps.
     """
-    total_spent = 0
-    stamps = 0
+
+    total_paid = 0
+    remaining_stamps = 0
+
+    bills = [int(input().strip()) for _ in range(n)]
 
     for bill in bills:
-        if bill >= a:
-            stamps += b
-
-        while stamps >= c and bill >= d:
-            stamps -= c
+        while remaining_stamps >= c and bill > 0:
             bill -= d
-        total_spent += bill
-    return total_spent, stamps
+            remaining_stamps -= c
 
-def main():
-    # Read input
-    n = int(input())
-    a = int(input())
-    b = int(input())
-    c = int(input())
-    d = int(input())
+        if bill < 0:
+            bill = 0
 
-    bills = [int(input()) for _ in range(n)]
+        total_paid += bill
 
-    total_spent, remaining_stamps = calculate_promotion(n, a, b, c, d, bills)
+        new_stamps = (bill // a) * b
+        remaining_stamps += new_stamps
 
-    print(total_spent)
+    print(total_paid)
     print(remaining_stamps)
 
-if __name__ == "__main__":
-    main()
+calculate_promotion(int(input().strip()),
+                    int(input().strip()),
+                    int(input().strip()),
+                    int(input().strip()),
+                    int(input().strip()))
